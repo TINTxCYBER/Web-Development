@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do App</title>
+    <style>
+        /* Basic Styles */
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f0f0;
+        }
+
+        #todo-app {
+            width: 300px;
+            margin: 100px auto;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            padding: 10px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 10px 0;
+        }
+
+        button {
+            background-color: #ff4500;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button.complete {
+            background-color: #008000;
+        }
+
+        button:hover {
+            background-color: #e63900;
+        }
+    </style>
+</head>
+<body>
+    <div id="todo-app">
+        <h2>To-Do List</h2>
+        <input type="text" id="task" placeholder="Add a new task">
+        <button onclick="addTask()">Add</button>
+        <ul id="todo-list">
+        </ul>
+        <h2>Completed Tasks</h2>
+        <ul id="completed-list">
+        </ul>
+    </div>
+
+    <script>
+        const taskInput = document.getElementById('task');
+        const todoList = document.getElementById('todo-list');
+        const completedList = document.getElementById('completed-list');
+
+        function addTask() {
+            const taskText = taskInput.value.trim();
+            if (taskText !== '') {
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `
+                    <span>${taskText}</span>
+                    <button class="complete" onclick="completeTask(this)">Complete</button>
+                `;
+                todoList.appendChild(listItem);
+                taskInput.value = '';
+            }
+        }
+
+        function completeTask(button) {
+            const listItem = button.parentElement;
+            listItem.querySelector('button.complete').remove();
+            completedList.appendChild(listItem);
+        }
+    </script>
+</body>
+</html>
